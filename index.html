@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patagonia Dreamers | Travel Agency in Tripoli, Libya</title>
+  <meta name="description" content="Patagonia Dreamers is a Tripoli-based travel agency offering international flight tickets, study visas abroad, and visit visas to Libya.">
+
+  <!-- Google Fonts: Fraunces (display) + Plus Jakarta Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       1. DESIGN TOKENS
+    ========================================================= */
+    :root{
+      /* Colors */
+      --black:        #14120f;   /* page background */
+      --black-soft:   #1d1a15;   /* panels / cards */
+      --black-line:   rgba(247, 241, 232, 0.10);
+
+      --orange:       #e8632a;   /* primary brand orange */
+      --orange-bright:#ff7d49;   /* hover state */
+      --rust:         #b8451e;   /* deep accent */
+      --amber:        #f2a65a;   /* warm highlight */
+
+      --cream:        #f7f1e8;   /* primary text on dark */
+      --cream-dim:    #cab9a8;   /* secondary text on dark */
+
+      /* Typography */
+      --font-display: "Fraunces", serif;
+      --font-body:    "Plus Jakarta Sans", sans-serif;
+
+      /* Layout */
+      --container:    1180px;
+      --radius:       16px;
+      --section-pad:  clamp(4rem, 8vw, 7rem);
+      --side-pad:     clamp(1.25rem, 4vw, 2.5rem);
+      --shadow:       0 24px 60px -24px rgba(0,0,0,0.55);
+
+      /* One hero photo for the whole site (Patagonia-style landscape -
+         swap this single URL to change the hero image everywhere) */
+      --hero-image: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600&q=80&fit=crop');
+    }
+
+    /* =========================================================
+       2. RESET & BASE
+    ========================================================= */
+    *, *::before, *::after{ box-sizing: border-box; margin: 0; padding: 0; }
+
+    html{ scroll-behavior: smooth; }
+
+    body{
+      font-family: var(--font-body);
+      background: var(--black);
+      color: var(--cream);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img, svg{ display: block; max-width: 100%; }
+    a{ color: inherit; }
+    ul{ list-style: none; }
+    button{ font-family: inherit; }
+
+    h1, h2, h3{
+      font-family: var(--font-display);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--cream);
+    }
+
+    p{ color: var(--cream-dim); }
+
+    /* Accessible focus state */
+    a:focus-visible,
+    button:focus-visible{
+      outline: 2px solid var(--orange);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Skip link for keyboard users */
+    .skip-link{
+      position: absolute;
+      left: -999px;
+      top: 0;
+      background: var(--orange);
+      color: var(--black);
+      padding: 0.6rem 1rem;
+      font-weight: 700;
+      z-index: 200;
+    }
+    .skip-link:focus{ left: 0; }
+
+    /* =========================================================
+       3. SHARED UTILITIES
+    ========================================================= */
+    .container{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--side-pad);
+    }
+
+    .eyebrow{
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .section-head{
+      max-width: 640px;
+      margin-bottom: 3rem;
+    }
+    .section-head h2{ margin-top: 0.6rem; font-size: clamp(1.9rem, 4vw, 2.75rem); }
+    .section-head p{ margin-top: 1rem; font-size: 1.05rem; }
+
+    /* Buttons */
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.9rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+    .btn svg{ width: 18px; height: 18px; }
+
+    .btn-primary{
+      background: var(--orange);
+      color: var(--black);
+    }
+    .btn-primary:hover{
+      background: var(--orange-bright);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px -10px rgba(232, 99, 42, 0.55);
+    }
+
+    .btn-outline{
+      border-color: rgba(247, 241, 232, 0.28);
+      color: var(--cream);
+    }
+    .btn-outline:hover{
+      border-color: var(--orange);
+      color: var(--orange);
+      transform: translateY(-3px);
+    }
+
+    /* Generic card grid */
+    .card-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .card{
+      background: var(--black-soft);
+      border: 1px solid var(--black-line);
+      border-radius: var(--radius);
+      padding: 2.25rem 1.85rem;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover{
+      transform: translateY(-6px);
+      border-color: rgba(232, 99, 42, 0.4);
+      box-shadow: var(--shadow);
+    }
+    .card-icon{
+      width: 46px;
+      height: 46px;
+      color: var(--orange);
+      margin-bottom: 1.25rem;
+    }
+    .card-icon svg{ width: 100%; height: 100%; }
+    .card h3{ font-size: 1.3rem; margin-bottom: 0.65rem; }
+    .card p{ font-size: 0.97rem; }
+
+    /* =========================================================
+       4. HEADER / NAVIGATION
+    ========================================================= */
+    .site-header{
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(20, 18, 15, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--black-line);
+    }
+
+    .nav-container{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 1rem var(--side-pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .logo{
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .logo .logo-dream{
+      color: var(--orange);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .nav-links{
+      display: flex;
+      align-items: center;
+      gap: clamp(1.25rem, 3vw, 2.5rem);
+    }
+
+    .nav-link{
+      position: relative;
+      padding: 0.4rem 0.1rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--cream-dim);
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover{ color: var(--cream); }
+    .nav-link.active{ color: var(--orange); }
+    .nav-link.active::after{
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -8px;
+      height: 2px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+
+    /* Mobile nav toggle (hamburger) */
+    .nav-toggle{
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 30px;
+      height: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    .nav-toggle .bar{
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: var(--cream);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-toggle.active .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.active .bar:nth-child(2){ opacity: 0; }
+    .nav-toggle.active .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+    /* =========================================================
+       5. HERO (Home)
+    ========================================================= */
+    .hero{
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      background-image: var(--hero-image);
+      background-size: cover;
+      background-position: center;
+    }
+    .hero::before{
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(20, 18, 15, 0.45) 0%,
+        rgba(20, 18, 15, 0.72) 55%,
+        rgba(20, 18, 15, 0.98) 100%);
+    }
+
+    .hero-content{
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      padding: 7.5rem var(--side-pad) 5.5rem;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .hero-title{
+      font-size: clamp(2.6rem, 6vw, 4.4rem);
+      margin-top: 0.85rem;
+    }
+    .hero-title .accent{
+      color: var(--orange);
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .hero-text{
+      margin: 1.5rem 0 2.25rem;
+      max-width: 540px;
+      font-size: clamp(1rem, 1.1vw, 1.15rem);
+      color: var(--cream-dim);
+    }
+
+    .hero-actions{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Scroll cue */
+    .scroll-cue{
+      position: absolute;
+      bottom: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      width: 22px;
+      height: 22px;
+      color: var(--cream-dim);
+      animation: bounce 2.4s ease-in-out infinite;
+    }
+
+    /* =========================================================
+       6. ROUTE DIVIDER (signature element)
+       A dashed flight path connecting Tripoli to the world,
+       used as a recurring visual motif across pages.
+    ========================================================= */
+    .route-divider{
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: -3px; /* remove sub-pixel seam from the hero */
+    }
+    .route-line{
+      fill: none;
+      stroke: var(--orange);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 9 12;
+      opacity: 0.55;
+      animation: dashFlow 40s linear infinite;
+    }
+    .route-dot{
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: pulseDot 3.2s ease-in-out infinite;
+    }
+    .route-dot.alt{ animation-delay: 1.6s; }
+
+    /* Compact version used on inner page headers */
+    .route-divider.compact{ height: 46px; margin-top: 0; }
+
+    /* =========================================================
+       7. CTA BANNER (Home)
+    ========================================================= */
+    .cta-banner{
+      background: linear-gradient(135deg, var(--orange) 0%, var(--rust) 100%);
+      border-radius: 24px;
+      padding: clamp(2.25rem, 5vw, 3.75rem);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.75rem;
+      margin: var(--section-pad) auto;
+    }
+    .cta-banner h2{ color: var(--black); margin: 0; font-size: clamp(1.6rem, 3.4vw, 2.4rem); }
+    .cta-banner p{ color: rgba(20,18,15,0.78); margin-top: 0.5rem; }
+    .cta-banner .btn-primary{
+      background: var(--black);
+      color: var(--cream);
+      flex-shrink: 0;
+    }
+    .cta-banner .btn-primary:hover{
+      background: var(--black-soft);
+      box-shadow: 0 14px 30px -10px rgba(0,0,0,0.5);
+    }
+
+    /* =========================================================
+       8. PAGE HEADERS (About / Services / Contact)
+    ========================================================= */
+    .page-header{
+      padding: clamp(6.5rem, 12vw, 9rem) var(--side-pad) clamp(2.5rem, 6vw, 3.5rem);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .page-header h1{
+      margin-top: 0.6rem;
+      font-size: clamp(2.3rem, 5vw, 3.6rem);
+    }
+    .page-header p{
+      margin-top: 1.25rem;
+      font-size: 1.05rem;
+      max-width: 600px;
+    }
+
+    /* =========================================================
+       9. ABOUT PAGE
+    ========================================================= */
+    .about-grid{
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: start;
+      padding-bottom: var(--section-pad);
+    }
+    .about-text p{ margin-bottom: 1.25rem; font-size: 1rem; }
+    .about-text p:last-child{ margin-bottom: 0; }
+
+    .compass-box{
+      background: var(--black-soft);
+      border: 1px solid var(--black-line);
+      border-radius: var(--radius);
+      padding: 2.25rem 1.5rem;
+      text-align: center;
+    }
+    .compass-svg{ width: 150px; height: 150px; margin: 0 auto 1.25rem; }
+    .compass-face{ fill: none; stroke: var(--black-line); stroke-width: 1.5; }
+    .compass-ticks line{ stroke: var(--cream-dim); stroke-width: 2; opacity: 0.35; }
+    .compass-needle{
+      transform-origin: 100px 100px;
+      animation: spinSlow 90s linear infinite;
+    }
+    .needle-north{ fill: var(--orange); }
+    .needle-south{ fill: var(--cream-dim); opacity: 0.45; }
+    .compass-center{ fill: var(--black-soft); stroke: var(--orange); stroke-width: 2.5; }
+    .compass-caption{ font-size: 0.92rem; color: var(--cream-dim); }
+    .compass-caption strong{ color: var(--cream); font-weight: 700; }
+
+    .values-grid{ padding-bottom: var(--section-pad); }
+
+    /* =========================================================
+       10. SERVICES PAGE
+    ========================================================= */
+    .service-card ul{
+      margin-top: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .service-card li{
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.94rem;
+      color: var(--cream-dim);
+    }
+    .service-card li .dot{
+      flex-shrink: 0;
+      width: 7px;
+      height: 7px;
+      margin-top: 0.5em;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .process{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.25rem;
+      padding: var(--section-pad) 0;
+    }
+    .process-step{ position: relative; padding-top: 3.25rem; }
+    .process-step .step-number{
+      position: absolute;
+      top: -0.6rem;
+      left: 0;
+      font-family: var(--font-display);
+      font-size: 3.25rem;
+      font-weight: 700;
+      color: rgba(232, 99, 42, 0.22);
+      line-height: 1;
+    }
+    .process-step h3{ font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .process-step p{ font-size: 0.95rem; }
+
+    /* =========================================================
+       11. CONTACT PAGE
+    ========================================================= */
+    .contact-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.75rem;
+      padding-bottom: var(--section-pad);
+    }
+    .contact-card{
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.9rem;
+    }
+    .contact-card .card-icon{ margin-bottom: 0; }
+    .contact-card h3{ font-size: 1.2rem; }
+    .contact-card p{ font-size: 0.95rem; }
+    .contact-card .btn{ margin-top: 0.4rem; }
+    .contact-card .detail{
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--cream);
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    /* =========================================================
+       12. FOOTER (always visible)
+    ========================================================= */
+    .site-footer{
+      border-top: 1px solid var(--black-line);
+      background: var(--black-soft);
+      margin-top: auto;
+    }
+    .footer-grid{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: clamp(3rem, 6vw, 4rem) var(--side-pad) 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2.5rem;
+    }
+    .footer-brand .logo{ margin-bottom: 0.85rem; }
+    .footer-brand p{ font-size: 0.94rem; max-width: 280px; }
+
+    .footer-col h4{
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+    .footer-col a, .footer-col span{
+      display: block;
+      font-size: 0.95rem;
+      color: var(--cream-dim);
+      text-decoration: none;
+      margin-bottom: 0.65rem;
+      transition: color 0.2s ease;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      padding: 0;
+    }
+    .footer-col a:hover, .footer-col button:hover{ color: var(--orange); }
+
+    .footer-bottom{
+      border-top: 1px solid var(--black-line);
+      padding: 1.5rem var(--side-pad);
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--cream-dim);
+    }
+    .footer-bottom .heart{ color: var(--orange); }
+
+    /* =========================================================
+       13. PAGE SWITCHING (multi-page SPA behaviour)
+    ========================================================= */
+    .page{ display: none; }
+    .page.active{
+      display: block;
+      animation: fadeIn 0.55s ease both;
+    }
+
+    /* layout helper so footer sits below content even on short pages */
+    body{ display: flex; flex-direction: column; min-height: 100vh; }
+    main{ flex: 1; }
+
+    /* =========================================================
+       14. ANIMATIONS
+    ========================================================= */
+    @keyframes fadeIn{
+      from{ opacity: 0; transform: translateY(14px); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp{
+      from{ opacity: 0; transform: translateY(24px); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce{
+      0%, 100%{ transform: translate(-50%, 0); opacity: 0.6; }
+      50%{ transform: translate(-50%, 8px); opacity: 1; }
+    }
+    @keyframes dashFlow{
+      to{ stroke-dashoffset: -1000; }
+    }
+    @keyframes pulseDot{
+      0%, 100%{ transform: scale(1); opacity: 1; }
+      50%{ transform: scale(1.5); opacity: 0.45; }
+    }
+    @keyframes spinSlow{
+      to{ transform: rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *, *::before, *::after{
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* =========================================================
+       15. RESPONSIVE
+    ========================================================= */
+    @media (max-width: 900px){
+      .about-grid{ grid-template-columns: 1fr; }
+      .compass-box{ max-width: 320px; }
+    }
+
+    @media (max-width: 860px){
+      .nav-toggle{ display: flex; }
+
+      .nav-links{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.1rem;
+        background: var(--black-soft);
+        border-bottom: 1px solid var(--black-line);
+        padding: 0 var(--side-pad);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+      }
+      .nav-links.open{
+        max-height: 320px;
+        padding: 1.25rem var(--side-pad) 1.75rem;
+      }
+      .nav-link.active::after{ bottom: -4px; }
+    }
+
+    @media (max-width: 560px){
+      .cta-banner{ text-align: center; justify-content: center; }
+      .hero-actions{ flex-direction: column; align-items: stretch; }
+      .hero-actions .btn{ justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- =========================================================
+       SITE HEADER / NAVIGATION
+  ========================================================== -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="/" class="logo" data-page="home" data-path="/">
+        Patagonia <span class="logo-dream">Dreamers</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="/" class="nav-link active" data-page="home" data-path="/">Home</a>
+        <a href="/about" class="nav-link" data-page="about" data-path="/about">About</a>
+        <a href="/services" class="nav-link" data-page="services" data-path="/services">Services</a>
+        <a href="/contact" class="nav-link" data-page="contact" data-path="/contact">Contact</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- =========================================================
+         HOME PAGE
+    ========================================================== -->
+    <section id="home" class="page active">
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-content">
+          <span class="eyebrow">Travel Agency · Tripoli, Libya</span>
+          <h1 class="hero-title">Wherever the world calls,<br><span class="accent">we help you answer.</span></h1>
+          <p class="hero-text">
+            Patagonia Dreamers is a Tripoli-based travel agency arranging international flight tickets,
+            study visas for students heading abroad, and visit visas for travellers coming to Libya —
+            all handled with care, from the first question to the final stamp.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-page="services" data-path="/services">
+              Explore Our Services
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14"/><path d="M13 5l7 7-7 7"/>
+              </svg>
+            </button>
+            <button class="btn btn-outline" data-page="contact" data-path="/contact">Contact Us</button>
+          </div>
+        </div>
+
+        <!-- Scroll cue -->
+        <svg class="scroll-cue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 5v14"/><path d="M5 12l7 7 7-7"/>
+        </svg>
+      </div>
+
+      <!-- Route divider (signature element) -->
+      <svg class="route-divider" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+        <path class="route-line" d="M30,55 C 250,5 420,85 620,40 C 820,-5 980,75 1170,30"/>
+        <circle class="route-dot" cx="30" cy="55" r="6" fill="var(--orange)"/>
+        <circle class="route-dot alt" cx="1170" cy="30" r="6" fill="var(--cream)"/>
+      </svg>
+
+      <!-- What we do -->
+      <section class="container">
+        <header class="section-head">
+          <span class="eyebrow">What We Do</span>
+          <h2>Three ways we get you moving</h2>
+          <p>Whether you're leaving Libya for your next adventure or arriving for your first, our services
+            are built around one simple goal: a smooth trip from booking to boarding.</p>
+        </header>
+
+        <div class="card-grid">
+          <!-- Card 1: Flight tickets -->
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 4 3 11 10 13 12 20 14 14 21 4Z"/>
+                <path d="M10 13 21 4"/>
+              </svg>
+            </div>
+            <h3>Flight Tickets, Worldwide</h3>
+            <p>We search and book international flights to destinations across the globe — single trips,
+              round trips, and multi-city itineraries.</p>
+          </article>
+
+          <!-- Card 2: Study visas -->
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h9l3 3v15H6z"/>
+                <path d="M15 3v3h3"/>
+                <line x1="9" y1="10" x2="15" y2="10"/>
+                <line x1="9" y1="13" x2="15" y2="13"/>
+                <line x1="9" y1="16" x2="13" y2="16"/>
+              </svg>
+            </div>
+            <h3>Study Visas Abroad</h3>
+            <p>Heading overseas to study? We guide you through the paperwork, embassy appointments,
+              and applications step by step.</p>
+          </article>
+
+          <!-- Card 3: Visit visas to Libya -->
+          <article class="card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="10" cy="11" r="7"/>
+                <path d="M3 11h14"/>
+                <path d="M10 4c2 2 3 4.5 3 7s-1 5-3 7c-2-2-3-4.5-3-7s1-5 3-7z"/>
+                <path d="M18 9c1.7 0 3 1.3 3 3 0 2.2-3 5-3 5s-3-2.8-3-5c0-1.7 1.3-3 3-3z"/>
+                <circle cx="18" cy="12" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <h3>Visit Visas to Libya</h3>
+            <p>We help international visitors arrange the invitations, sponsorships, and documents
+              needed to travel to and through Libya.</p>
+          </article>
+        </div>
+
+        <!-- CTA banner -->
+        <div class="cta-banner">
+          <div>
+            <h2>Ready to plan your trip?</h2>
+            <p>Tell us where you're headed — we'll handle the tickets, the paperwork, and everything in between.</p>
+          </div>
+          <button class="btn btn-primary" data-page="contact" data-path="/contact">Get in Touch</button>
+        </div>
+      </section>
+    </section>
+
+    <!-- =========================================================
+         ABOUT PAGE
+    ========================================================== -->
+    <section id="about" class="page">
+
+      <div class="page-header">
+        <span class="eyebrow">About Us</span>
+        <h1>Built on a love for travel — and a head for paperwork</h1>
+        <p>Patagonia Dreamers began with a simple idea: travel shouldn't be complicated by logistics.
+          Based in Tripoli, Libya, we help travellers book flights, students apply for study visas,
+          and visitors make their way to Libya.</p>
+      </div>
+
+      <svg class="route-divider compact" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+        <path class="route-line" d="M30,55 C 250,5 420,85 620,40 C 820,-5 980,75 1170,30"/>
+        <circle class="route-dot" cx="30" cy="55" r="6" fill="var(--orange)"/>
+        <circle class="route-dot alt" cx="1170" cy="30" r="6" fill="var(--cream)"/>
+      </svg>
+
+      <div class="container">
+        <div class="about-grid" style="padding-top: var(--section-pad);">
+          <div class="about-text">
+            <p>
+              Founded by Juancito Doe, Patagonia Dreamers grew out of years spent helping friends and
+              family navigate embassy queues, airline booking systems, and confusing application forms.
+              What started as informal favours grew into a full-service travel agency.
+            </p>
+            <p>
+              Today, we work with people leaving Libya for international trips and study programmes,
+              as well as visitors from abroad who need a visit visa to experience Libya. Wherever
+              you're going, our goal stays the same: clear guidance, honest timelines, and a trip that
+              goes smoothly from the first booking to the final stamp.
+            </p>
+            <p>
+              No call centres, no endless hold music — just a small team that picks up the phone
+              and answers your emails.
+            </p>
+          </div>
+
+          <!-- Decorative compass (signature illustration) -->
+          <div class="compass-box">
+            <svg class="compass-svg" viewBox="0 0 200 200" aria-hidden="true">
+              <circle class="compass-face" cx="100" cy="100" r="92"/>
+              <g class="compass-ticks">
+                <line x1="100" y1="8" x2="100" y2="24"/>
+                <line x1="192" y1="100" x2="176" y2="100"/>
+                <line x1="100" y1="192" x2="100" y2="176"/>
+                <line x1="8" y1="100" x2="24" y2="100"/>
+                <line x1="164" y1="36" x2="153" y2="47"/>
+                <line x1="164" y1="164" x2="153" y2="153"/>
+                <line x1="36" y1="164" x2="47" y2="153"/>
+                <line x1="36" y1="36" x2="47" y2="47"/>
+              </g>
+              <g class="compass-needle">
+                <polygon class="needle-north" points="100,26 112,100 100,100 88,100"/>
+                <polygon class="needle-south" points="100,174 112,100 100,100 88,100"/>
+              </g>
+              <circle class="compass-center" cx="100" cy="100" r="6"/>
+            </svg>
+            <p class="compass-caption"><strong>Tripoli, Libya</strong><br>your starting point, wherever you're headed.</p>
+          </div>
+        </div>
+
+        <!-- Values -->
+        <div class="values-grid">
+          <header class="section-head">
+            <span class="eyebrow">What Guides Us</span>
+            <h2>How we work with you</h2>
+          </header>
+
+          <div class="card-grid">
+            <article class="card">
+              <div class="card-icon" aria-hidden="true" style="font-size: 1.9rem; line-height: 1;">🌍</div>
+              <h3>Local Expertise</h3>
+              <p>Based in Tripoli, we understand Libyan travel regulations and the realities of getting
+                paperwork done — for residents going abroad and visitors coming in.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-icon" aria-hidden="true" style="font-size: 1.9rem; line-height: 1;">🤝</div>
+              <h3>Personal Guidance</h3>
+              <p>Every traveller gets one-on-one support — from choosing the right flight to preparing
+                the right documents for your visa appointment.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-icon" aria-hidden="true" style="font-size: 1.9rem; line-height: 1;">💬</div>
+              <h3>Clear Communication</h3>
+              <p>No jargon, no guessing. We explain each step so you always know what's next and what
+                to expect.</p>
+            </article>
+
+            <article class="card">
+              <div class="card-icon" aria-hidden="true" style="font-size: 1.9rem; line-height: 1;">🛡️</div>
+              <h3>Trusted Process</h3>
+              <p>We follow official embassy and consular requirements closely, so your application is
+                accurate and complete the first time.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SERVICES PAGE
+    ========================================================== -->
+    <section id="services" class="page">
+
+      <div class="page-header">
+        <span class="eyebrow">Services</span>
+        <h1>Everything you need to get moving</h1>
+        <p>From booking your seat to securing your visa, Patagonia Dreamers covers the essentials of
+          international travel — in one place.</p>
+      </div>
+
+      <svg class="route-divider compact" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+        <path class="route-line" d="M30,55 C 250,5 420,85 620,40 C 820,-5 980,75 1170,30"/>
+        <circle class="route-dot" cx="30" cy="55" r="6" fill="var(--orange)"/>
+        <circle class="route-dot alt" cx="1170" cy="30" r="6" fill="var(--cream)"/>
+      </svg>
+
+      <div class="container" style="padding-top: var(--section-pad);">
+        <div class="card-grid">
+
+          <!-- Service 1 -->
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 4 3 11 10 13 12 20 14 14 21 4Z"/>
+                <path d="M10 13 21 4"/>
+              </svg>
+            </div>
+            <h3>International Flight Tickets</h3>
+            <p>We search across airlines and routes to find flights that fit your schedule and your
+              budget — whether you're booking a single trip or a multi-leg journey.</p>
+            <ul>
+              <li><span class="dot" aria-hidden="true"></span>Wide route network across continents</li>
+              <li><span class="dot" aria-hidden="true"></span>One-way, return &amp; multi-city options</li>
+              <li><span class="dot" aria-hidden="true"></span>Guidance on baggage, layovers &amp; documents</li>
+            </ul>
+          </article>
+
+          <!-- Service 2 -->
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 3h9l3 3v15H6z"/>
+                <path d="M15 3v3h3"/>
+                <line x1="9" y1="10" x2="15" y2="10"/>
+                <line x1="9" y1="13" x2="15" y2="13"/>
+                <line x1="9" y1="16" x2="13" y2="16"/>
+              </svg>
+            </div>
+            <h3>Study Visa Assistance</h3>
+            <p>Heading abroad to study? We help prepare and submit the paperwork that embassies and
+              universities require, and get you ready for visa interviews.</p>
+            <ul>
+              <li><span class="dot" aria-hidden="true"></span>Document checklists for your destination</li>
+              <li><span class="dot" aria-hidden="true"></span>Embassy appointment scheduling support</li>
+              <li><span class="dot" aria-hidden="true"></span>Application review before submission</li>
+            </ul>
+          </article>
+
+          <!-- Service 3 -->
+          <article class="card service-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="10" cy="11" r="7"/>
+                <path d="M3 11h14"/>
+                <path d="M10 4c2 2 3 4.5 3 7s-1 5-3 7c-2-2-3-4.5-3-7s1-5 3-7z"/>
+                <path d="M18 9c1.7 0 3 1.3 3 3 0 2.2-3 5-3 5s-3-2.8-3-5c0-1.7 1.3-3 3-3z"/>
+                <circle cx="18" cy="12" r="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <h3>Visit Visas to Libya</h3>
+            <p>For travellers coming to Libya, we coordinate the invitation letters, sponsorships, and
+              paperwork needed for a smooth entry.</p>
+            <ul>
+              <li><span class="dot" aria-hidden="true"></span>Invitation &amp; sponsorship coordination</li>
+              <li><span class="dot" aria-hidden="true"></span>Guidance on entry requirements</li>
+              <li><span class="dot" aria-hidden="true"></span>Support throughout the application</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- How it works (real sequence, so numbered steps make sense) -->
+        <div class="process">
+          <div class="process-step">
+            <span class="step-number" aria-hidden="true">01</span>
+            <h3>Share your plans</h3>
+            <p>Call or email us with where you're going, why, and when.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-number" aria-hidden="true">02</span>
+            <h3>We prepare everything</h3>
+            <p>We research flights and gather the requirements for your ticket or visa.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-number" aria-hidden="true">03</span>
+            <h3>You're ready to go</h3>
+            <p>Review the details and you're set — ticket booked, paperwork in hand.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         CONTACT PAGE
+    ========================================================== -->
+    <section id="contact" class="page">
+
+      <div class="page-header">
+        <span class="eyebrow">Contact</span>
+        <h1>Let's start planning your trip</h1>
+        <p>No forms, no waiting on hold — just reach out directly and we'll get back to you as soon
+          as we can.</p>
+      </div>
+
+      <svg class="route-divider compact" viewBox="0 0 1200 90" preserveAspectRatio="none" aria-hidden="true">
+        <path class="route-line" d="M30,55 C 250,5 420,85 620,40 C 820,-5 980,75 1170,30"/>
+        <circle class="route-dot" cx="30" cy="55" r="6" fill="var(--orange)"/>
+        <circle class="route-dot alt" cx="1170" cy="30" r="6" fill="var(--cream)"/>
+      </svg>
+
+      <div class="container" style="padding-top: var(--section-pad);">
+        <div class="contact-grid">
+
+          <!-- Call -->
+          <article class="card contact-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2C9.7 20 4 14.3 4 7a2 2 0 0 1 1-3z"/>
+              </svg>
+            </div>
+            <h3>Call Us</h3>
+            <p class="detail">305 355-465</p>
+            <a class="btn btn-primary" href="tel:305355465">Call Now</a>
+          </article>
+
+          <!-- Email -->
+          <article class="card contact-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="M3 7l9 6 9-6"/>
+              </svg>
+            </div>
+            <h3>Email Us</h3>
+            <p class="detail">damianleosaavedra@gmail.com</p>
+            <a class="btn btn-primary" href="mailto:damianleosaavedra@gmail.com">Send Email</a>
+          </article>
+
+          <!-- Location -->
+          <article class="card contact-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21c-4-4-7-7.5-7-11a7 7 0 0 1 14 0c0 3.5-3 7-7 11z"/>
+                <circle cx="12" cy="10" r="2.5"/>
+              </svg>
+            </div>
+            <h3>Service Area</h3>
+            <p class="detail">Tripoli, Libya</p>
+            <p>Proudly serving travellers across Libya, and visitors from around the world.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER (always visible)
+  ========================================================== -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="logo" data-page="home" data-path="/">
+          Patagonia <span class="logo-dream">Dreamers</span>
+        </a>
+        <p>A Tripoli-based travel agency for flight tickets, study visas abroad, and visit visas to Libya.</p>
+      </div>
+
+      <nav class="footer-col" aria-label="Footer navigation">
+        <h4>Pages</h4>
+        <a href="/" data-page="home" data-path="/">Home</a>
+        <a href="/about" data-page="about" data-path="/about">About</a>
+        <a href="/services" data-page="services" data-path="/services">Services</a>
+        <a href="/contact" data-page="contact" data-path="/contact">Contact</a>
+      </nav>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:305355465">305 355-465</a>
+        <a href="mailto:damianleosaavedra@gmail.com">damianleosaavedra@gmail.com</a>
+        <span>Tripoli, Libya</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Patagonia Dreamers. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* =========================================================
+       SINGLE-PAGE NAVIGATION
+       Each "page" is a <section class="page"> that gets shown
+       or hidden — no real page reloads happen.
+    ========================================================= */
+
+    // Map clean URL paths to page section ids
+    const ROUTES = {
+      '/': 'home',
+      '/index.html': 'home',
+      '/about': 'about',
+      '/services': 'services',
+      '/contact': 'contact'
+    };
+
+    // Map page ids back to the clean URL path used when pushing history
+    const PAGE_PATHS = {
+      home: '/',
+      about: '/about',
+      services: '/services',
+      contact: '/contact'
+    };
+
+    // Human-friendly tab titles per page
+    const PAGE_TITLES = {
+      home: 'Patagonia Dreamers | Travel Agency in Tripoli, Libya',
+      about: 'About Us | Patagonia Dreamers',
+      services: 'Our Services | Patagonia Dreamers',
+      contact: 'Contact Us | Patagonia Dreamers'
+    };
+
+    const navLinks = document.getElementById('navLinks');
+    const navToggle = document.getElementById('navToggle');
+
+    /**
+     * Show the page with the given id and hide every other page.
+     * Also syncs the active state of all nav links and updates the title.
+     */
+    function showPage(pageId) {
+      if (!ROUTES[PAGE_PATHS[pageId]] && !document.getElementById(pageId)) {
+        pageId = 'home';
+      }
+
+      document.querySelectorAll('.page').forEach(function (section) {
+        section.classList.remove('active');
+      });
+
+      const target = document.getElementById(pageId) || document.getElementById('home');
+      target.classList.add('active');
+
+      document.querySelectorAll('[data-page]').forEach(function (link) {
+        if (link.classList.contains('nav-link')) {
+          link.classList.toggle('active', link.dataset.page === target.id);
+        }
+      });
+
+      if (PAGE_TITLES[target.id]) {
+        document.title = PAGE_TITLES[target.id];
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    /**
+     * Navigate to a page: show it, and (when possible) update the
+     * browser URL to a clean path like /about using pushState.
+     * pushState is wrapped in try/catch so the site keeps working
+     * in sandboxed previews or when opened from a local file.
+     */
+    function navigateTo(pageId, push) {
+      showPage(pageId);
+
+      if (push) {
+        const path = PAGE_PATHS[pageId] || '/';
+        try {
+          history.pushState({ page: pageId }, '', path);
+        } catch (err) {
+          // pushState isn't available here (e.g. local file or preview) -
+          // the page still switched above, so nothing else to do.
+        }
+      }
+
+      closeMobileNav();
+    }
+
+    /**
+     * Work out which page id matches the current window.location.pathname.
+     * Falls back to "home" if the path is unknown or unavailable.
+     */
+    function resolvePageFromPath() {
+      let path = '/';
+      try {
+        path = window.location.pathname || '/';
+      } catch (err) {
+        return 'home';
+      }
+
+      if (path.length > 1 && path.endsWith('/')) {
+        path = path.slice(0, -1);
+      }
+
+      return ROUTES[path] || 'home';
+    }
+
+    /* Mobile nav helpers */
+    function toggleMobileNav() {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.classList.toggle('active', isOpen);
+      navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+    function closeMobileNav() {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('active');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    /* Wire up every clickable element that declares a data-page */
+    document.querySelectorAll('[data-page]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        navigateTo(el.dataset.page, true);
+      });
+    });
+
+    navToggle.addEventListener('click', toggleMobileNav);
+
+    /* Support browser Back / Forward when pushState is available */
+    window.addEventListener('popstate', function (e) {
+      const pageId = (e.state && e.state.page) || resolvePageFromPath();
+      showPage(pageId);
+    });
+
+    /* On first load, try to open the page that matches the current URL
+       (so direct links like /about work with server-side routing).
+       If anything goes wrong, default to the Home page. */
+    (function init() {
+      let initialPage = 'home';
+      try {
+        initialPage = resolvePageFromPath();
+      } catch (err) {
+        initialPage = 'home';
+      }
+      showPage(initialPage);
+    })();
+
+    /* Footer copyright year */
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
